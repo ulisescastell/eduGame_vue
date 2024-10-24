@@ -1,17 +1,14 @@
-<script setup>
-</script>
-
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-  
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+}
+</script>
 
 <style scoped>
 header {
