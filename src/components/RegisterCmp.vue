@@ -49,6 +49,33 @@ import NavCmp from "@/components/NavCmp.vue";
 import FooterCmp from "@/components/FooterCmp.vue";
 </script>
 
+<script>
+export default {
+    data() {
+        return {
+            data: null, 
+            email: '', 
+            password: ''
+        };
+    },
+    methods: {
+        async fetchData() {
+            try {
+                const response = await axios.get('http://localhost:3000/api/register', {
+                    params: {
+                        email: this.email,
+                        password: this.password
+                    }
+                });
+                this.data = response.data;
+            } catch (error) {
+                console.error('Error obteniendo datos:', error);
+            }
+        }
+    }
+};
+</script>
+
 <style scoped>
 main {
     margin: 10px;

@@ -5,21 +5,14 @@
             <div class="containerTotal">
                 <div class="login-container">
                     <h1>Login</h1>
-                    <form action="/login" method="POST">
+                    <form @submit.prevent="login" method="POST">
                         <label for="email">Email:</label>
-                        <input type="email" name="email" required><br><br>
-
+                        <input v-model="email" type="email" name="email" required><br><br>
                         <label for="password">Password:</label>
-                        <input type="password" name="password" required><br><br>
-
-                        <!--<label for="role">Role:</label>
-                        <select name="role">
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                        </select><br><br>-->
-
+                        <input v-model="password" type="password" name="password" required><br><br>
                         <button type="submit">Login</button>
                     </form>
+                    <p v-if="data"> {{ data }}</p>
                 </div>
             </div>
         </main>
@@ -30,6 +23,33 @@
 <script setup>
 import NavCmp from "@/components/NavCmp.vue";
 import FooterCmp from "@/components/FooterCmp.vue";
+import axios from 'axios';
+</script>
+
+<script>
+export default {
+    data() {
+        return {
+            data: null,
+            email: '',
+            password: ''
+        };
+    },
+    methods: {
+        async login() {
+            try {
+                const response = await axios.get('/api/login', {
+                    email: this.email,
+                    password: this.password
+                });
+                console.log('Login exitoso:', response.data);
+            } catch (error) {
+                console.error('Error en login:', error);
+            }
+        }
+
+    }
+};
 </script>
 
 <style scoped>
